@@ -160,7 +160,11 @@ export default defineApp({
   permissions: {
     sandbox: {
       network: {
-        allowedDomains: ["github.com", "raw.githubusercontent.com"],
+        allowedDomains: [
+          "github.com",
+          "api.github.com",
+          "raw.githubusercontent.com",
+        ],
         deniedDomains: [],
       },
       filesystem: {
