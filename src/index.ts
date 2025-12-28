@@ -45,8 +45,11 @@ const createTool = tool({
       .describe("Target directory (defaults to project name)")
       .optional(),
   }),
-  execute: async (args, _context) => {
+  execute: async (args, context) => {
     intro(pc.bgCyan(pc.black(" create-kly-app ")));
+
+    // Use invokeDir to get the directory where the user ran the command
+    const workingDir = context.invokeDir || process.cwd();
 
     // Ask for project name if not provided
     let projectName = args.name;
@@ -92,7 +95,7 @@ const createTool = tool({
     }
 
     const targetDir = args.dir || projectName;
-    const fullPath = join(process.cwd(), targetDir);
+    const fullPath = join(workingDir, targetDir);
 
     // Check if directory already exists
     if (existsSync(fullPath)) {
