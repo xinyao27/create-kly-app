@@ -164,9 +164,7 @@ export default defineApp({
         deniedDomains: [],
       },
       filesystem: {
-        denyRead: [],
-        allowWrite: [process.cwd()],
-        denyWrite: [],
+        allowWrite: ["*"],
       },
     },
   },
