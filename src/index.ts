@@ -111,6 +111,7 @@ const createTool = tool({
           install: false,
           offline: false,
           preferOffline: true,
+          auth: process.env.GIGET_AUTH,
         },
       );
 
@@ -160,11 +161,7 @@ export default defineApp({
   permissions: {
     sandbox: {
       network: {
-        allowedDomains: [
-          "github.com",
-          "api.github.com",
-          "raw.githubusercontent.com",
-        ],
+        allowedDomains: ["*.github.com", "*.githubusercontent.com"],
         deniedDomains: [],
       },
       filesystem: {
