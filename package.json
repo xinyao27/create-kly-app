@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@clack/prompts": "1.0.0-alpha.9",
-    "kly": "latest",
+    "kly": "0.1.1",
     "giget": "^2.0.0",
     "picocolors": "^1.1.1",
     "zod": "^4.2.1"
