@@ -59,6 +59,7 @@ const createTool = tool({
           if (!/^[a-z0-9-]+$/.test(value)) {
             return "Project name can only contain lowercase letters, numbers, and hyphens";
           }
+          return undefined;
         },
       });
 
@@ -156,4 +157,17 @@ export default defineApp({
   version: "0.0.1",
   description: "Create kly applications with a single command",
   tools: [createTool],
+  permissions: {
+    sandbox: {
+      network: {
+        allowedDomains: ["github.com", "raw.githubusercontent.com"],
+        deniedDomains: [],
+      },
+      filesystem: {
+        denyRead: [],
+        allowWrite: [process.cwd()],
+        denyWrite: [],
+      },
+    },
+  },
 });
