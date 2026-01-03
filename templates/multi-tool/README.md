@@ -1,8 +1,16 @@
 # My Kly App
 
-A multi-tool kly application with organized structure.
+An AI-powered kly application with natural language support.
 
-## Getting Started
+## Install Kly
+
+```bash
+npm install -g kly
+# or
+bun install -g kly
+```
+
+## Setup
 
 Install dependencies:
 
@@ -10,34 +18,62 @@ Install dependencies:
 bun install
 ```
 
-Run locally:
+## Usage
+
+### Run from GitHub
+
+Run any kly app directly from GitHub:
+
+```bash
+kly run user/repo
+```
+
+### Run as MCP Server
+
+Start as MCP server for Claude Desktop/Code:
+
+```bash
+kly mcp user/repo
+```
+
+### Local Development
+
+Run locally during development:
 
 ```bash
 bun run start
 ```
 
-## Usage
+### Global Installation
 
-### CLI Mode
-
-Get current weather:
+Install as a global command:
 
 ```bash
-bun run start current --city "Tokyo"
+kly install .
+# or
+kly link
 ```
 
-Get forecast:
+After installation, run directly:
 
 ```bash
-bun run start forecast --city "Tokyo" --days 5
+my-kly-app
 ```
 
-### Remote Execution
+## API Keys (Optional)
 
-After pushing to GitHub, others can run your app without installation:
+Set up your API keys for AI-powered features:
 
 ```bash
-kly run github.com/yourusername/your-repo
+export OPENAI_API_KEY=sk-...
+# or
+export ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Configure your preferred model:
+
+```bash
+kly models
 ```
 
 ## Project Structure
@@ -45,42 +81,12 @@ kly run github.com/yourusername/your-repo
 ```
 .
 ├── src/
-│   ├── index.ts              # Main app definition
-│   └── tools/                # Individual tools
-│       ├── current-weather.ts
-│       └── forecast.ts
+│   └── index.ts      # Entry: defineApp with tools
 ├── package.json
 ├── tsconfig.json
 └── README.md
 ```
 
-## Adding New Tools
-
-1. Create a new file in `src/tools/`
-2. Define your tool using the `tool()` function
-3. Export and add it to the `tools` array in `src/index.ts`
-
-Example:
-
-```typescript
-// src/tools/my-tool.ts
-import { z } from "zod"
-import { tool } from "kly"
-
-export const myTool = tool({
-  name: "my-tool",
-  description: "What it does",
-  inputSchema: z.object({
-    param: z.string().describe("Parameter description"),
-  }),
-  execute: async ({ param }) => {
-    // Your logic here
-    return { result: "success" }
-  },
-})
-```
-
 ## Learn More
 
 - [Kly Documentation](https://github.com/xinyao27/kly)
-- [Examples](https://github.com/xinyao27/kly/tree/main/examples)

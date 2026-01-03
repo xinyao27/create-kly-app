@@ -1,8 +1,16 @@
 # My Kly App
 
-A basic kly application with a single tool.
+An AI-powered kly application with natural language support.
 
-## Getting Started
+## Install Kly
+
+```bash
+npm install -g kly
+# or
+bun install -g kly
+```
+
+## Setup
 
 Install dependencies:
 
@@ -10,28 +18,62 @@ Install dependencies:
 bun install
 ```
 
-Run locally:
+## Usage
+
+### Run from GitHub
+
+Run any kly app directly from GitHub:
+
+```bash
+kly run user/repo
+```
+
+### Run as MCP Server
+
+Start as MCP server for Claude Desktop/Code:
+
+```bash
+kly mcp user/repo
+```
+
+### Local Development
+
+Run locally during development:
 
 ```bash
 bun run start
 ```
 
-## Usage
+### Global Installation
 
-### CLI Mode
-
-Run the greet tool:
+Install as a global command:
 
 ```bash
-bun run start greet --name "World"
+kly install .
+# or
+kly link
 ```
 
-### Remote Execution
-
-After pushing to GitHub, others can run your app without installation:
+After installation, run directly:
 
 ```bash
-kly run github.com/yourusername/your-repo
+my-kly-app
+```
+
+## API Keys (Optional)
+
+Set up your API keys for AI-powered features:
+
+```bash
+export OPENAI_API_KEY=sk-...
+# or
+export ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Configure your preferred model:
+
+```bash
+kly models
 ```
 
 ## Project Structure
@@ -39,7 +81,7 @@ kly run github.com/yourusername/your-repo
 ```
 .
 ├── src/
-│   └── index.ts       # Main app definition with tools
+│   └── index.ts      # Entry: defineApp with tools
 ├── package.json
 ├── tsconfig.json
 └── README.md
@@ -48,4 +90,3 @@ kly run github.com/yourusername/your-repo
 ## Learn More
 
 - [Kly Documentation](https://github.com/xinyao27/kly)
-- [Examples](https://github.com/xinyao27/kly/tree/main/examples)
