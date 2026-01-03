@@ -1,15 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { downloadTemplate } from "giget";
-import {
-  defineApp,
-  input,
-  output,
-  color as pc,
-  select,
-  spinner,
-  tool,
-} from "kly";
+import { colors, defineApp, input, output, select, spinner, tool } from "kly";
 import { z } from "zod";
 
 const TEMPLATES = {
@@ -44,7 +36,7 @@ const createTool = tool({
       .optional(),
   }),
   execute: async (args, context) => {
-    output(pc.bgCyan(pc.black(" create-kly-app ")));
+    output(colors.bgCyan(colors.black(" create-kly-app ")));
 
     // Use invokeDir to get the directory where the user ran the command
     const workingDir = context.invokeDir || process.cwd();
@@ -59,12 +51,12 @@ const createTool = tool({
         });
 
         if (!nameResult) {
-          output(pc.red("Project name is required"));
+          output(colors.red("Project name is required"));
           continue;
         }
         if (!/^[a-z0-9-]+$/.test(nameResult)) {
           output(
-            pc.red(
+            colors.red(
               "Project name can only contain lowercase letters, numbers, and hyphens",
             ),
           );
@@ -127,14 +119,14 @@ const createTool = tool({
       }
 
       output(
-        pc.green(`\n✓ Project created at ${pc.cyan(targetDir)}\n
+        colors.green(`\n✓ Project created at ${colors.cyan(targetDir)}\n
 Next steps:
-  ${pc.cyan(`cd ${targetDir}`)}
-  ${pc.cyan("bun install")}
-  ${pc.cyan("bun run start")}
+  ${colors.cyan(`cd ${targetDir}`)}
+  ${colors.cyan("bun install")}
+  ${colors.cyan("bun run start")}
 
 To run remotely:
-  ${pc.cyan(`kly run github.com/yourusername/${projectName}`)}
+  ${colors.cyan(`kly run github.com/yourusername/${projectName}`)}
 `),
       );
 
@@ -164,6 +156,7 @@ export default defineApp({
       },
       filesystem: {
         allowWrite: ["*"],
+        allowGitConfig: true,
       },
     },
   },
