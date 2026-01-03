@@ -5,6 +5,9 @@
   "type": "module",
   "keywords": ["kly", "cli"],
   "license": "MIT",
+  "bin": {
+    "kly-app": "./src/index.ts"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "start": "bun run src/index.ts"
