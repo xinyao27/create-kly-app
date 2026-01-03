@@ -1,17 +1,15 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { downloadTemplate } from "giget";
 import {
-  cancel,
-  intro,
-  isCancel,
-  outro,
+  defineApp,
+  input,
+  output,
+  color as pc,
   select,
   spinner,
-  text,
-} from "@clack/prompts";
-import { downloadTemplate } from "giget";
-import { defineApp, tool } from "kly";
-import pc from "picocolors";
+  tool,
+} from "kly";
 import { z } from "zod";
 
 const TEMPLATES = {
@@ -46,7 +44,7 @@ const createTool = tool({
       .optional(),
   }),
   execute: async (args, context) => {
-    intro(pc.bgCyan(pc.black(" create-kly-app ")));
+    output(pc.bgCyan(pc.black(" create-kly-app ")));
 
     // Use invokeDir to get the directory where the user ran the command
     const workingDir = context.invokeDir || process.cwd();
@@ -54,44 +52,40 @@ const createTool = tool({
     // Ask for project name if not provided
     let projectName = args.name;
     if (!projectName) {
-      const nameResult = await text({
-        message: "What is your project name?",
-        placeholder: "my-kly-app",
-        validate: (value) => {
-          if (!value) return "Project name is required";
-          if (!/^[a-z0-9-]+$/.test(value)) {
-            return "Project name can only contain lowercase letters, numbers, and hyphens";
-          }
-          return undefined;
-        },
-      });
+      while (true) {
+        const nameResult = await input({
+          prompt: "What is your project name?",
+          placeholder: "my-kly-app",
+        });
 
-      if (isCancel(nameResult)) {
-        cancel("Operation cancelled");
-        process.exit(0);
+        if (!nameResult) {
+          output(pc.red("Project name is required"));
+          continue;
+        }
+        if (!/^[a-z0-9-]+$/.test(nameResult)) {
+          output(
+            pc.red(
+              "Project name can only contain lowercase letters, numbers, and hyphens",
+            ),
+          );
+          continue;
+        }
+        projectName = nameResult;
+        break;
       }
-
-      projectName = nameResult as string;
     }
 
     // Ask for template if not provided
     let template = args.template;
     if (!template) {
-      const templateResult = await select({
-        message: "Which template would you like to use?",
+      template = await select<TemplateKey>({
+        prompt: "Which template would you like to use?",
         options: Object.entries(TEMPLATES).map(([key, value]) => ({
-          value: key,
-          label: value.name,
-          hint: value.description,
+          value: key as TemplateKey,
+          name: value.name,
+          description: value.description,
         })),
       });
-
-      if (isCancel(templateResult)) {
-        cancel("Operation cancelled");
-        process.exit(0);
-      }
-
-      template = templateResult as TemplateKey;
     }
 
     const targetDir = args.dir || projectName;
@@ -103,8 +97,9 @@ const createTool = tool({
     }
 
     // Download template using giget
-    const s = spinner();
-    s.start(`Creating project from ${TEMPLATES[template].name} template...`);
+    const s = spinner(
+      `Creating project from ${TEMPLATES[template].name} template...`,
+    );
 
     try {
       await downloadTemplate(
@@ -118,7 +113,7 @@ const createTool = tool({
         },
       );
 
-      s.stop(`Project created successfully!`);
+      s.succeed("Project created successfully!");
 
       // Replace placeholder values in package.json
       const packageJsonPath = join(fullPath, "package.json");
@@ -131,7 +126,7 @@ const createTool = tool({
         );
       }
 
-      outro(
+      output(
         pc.green(`\n✓ Project created at ${pc.cyan(targetDir)}\n
 Next steps:
   ${pc.cyan(`cd ${targetDir}`)}
@@ -149,9 +144,9 @@ To run remotely:
         template,
         path: fullPath,
       };
-    } catch (error) {
-      s.stop(`Failed to create project`);
-      throw error;
+    } catch (err) {
+      s.fail("Failed to create project");
+      throw err;
     }
   },
 });
