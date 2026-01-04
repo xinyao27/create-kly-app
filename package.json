@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "giget": "^2.0.0",
-    "kly": "^0.3.0",
+    "kly": "latest",
     "zod": "^4.3.4"
   },
   "devDependencies": {

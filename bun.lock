@@ -6,7 +6,7 @@
       "name": "create-clai-app",
       "dependencies": {
         "giget": "^2.0.0",
-        "kly": "^0.3.0",
+        "kly": "latest",
         "zod": "^4.3.4",
       },
       "devDependencies": {
@@ -540,7 +540,7 @@
 
     "json-schema-typed": ["json-schema-typed@8.0.2", "", {}, "sha512-fQhoXdcvc3V28x7C7BMs4P5+kNlgUURe2jmUT1T//oBRMDrqy1QPelJimwZGo7Hg9VPV3EQV5Bnq4hbFy2vetA=="],
 
-    "kly": ["kly@0.3.0", "", { "dependencies": { "@ai-sdk/anthropic": "^3.0.2", "@ai-sdk/deepseek": "^2.0.2", "@ai-sdk/google": "^3.0.2", "@ai-sdk/mistral": "^3.0.2", "@ai-sdk/openai": "^3.0.2", "@anthropic-ai/sandbox-runtime": "^0.0.23", "@clack/prompts": "1.0.0-alpha.9", "@modelcontextprotocol/sdk": "^1.25.1", "ai": "^6.0.6", "js-yaml": "^4.1.1", "xycolors": "^0.1.2", "zod": "^4.3.4" }, "bin": { "kly": "dist/bin/kly.mjs" } }, "sha512-IUWd1ai1mUsO+hY2E7B38JLr3y/bKM0jyq76vU76IWtX5qUCZ1f78ZyBz0X4r22Hq7F4SKe5ZjEstbBKGEyr5g=="],
+    "kly": ["kly@0.3.1", "", { "dependencies": { "@ai-sdk/anthropic": "^3.0.2", "@ai-sdk/deepseek": "^2.0.2", "@ai-sdk/google": "^3.0.2", "@ai-sdk/mistral": "^3.0.2", "@ai-sdk/openai": "^3.0.2", "@anthropic-ai/sandbox-runtime": "^0.0.23", "@clack/prompts": "1.0.0-alpha.9", "@modelcontextprotocol/sdk": "^1.25.1", "ai": "^6.0.6", "js-yaml": "^4.1.1", "xycolors": "^0.1.2", "zod": "^4.3.4" }, "bin": { "kly": "dist/bin/kly.mjs" } }, "sha512-Zge5CDcJgwC0psBjO8VDLvIZSku7PKJDXLy2pwiEBnPzRN7EK+wt/o+IOkVx1NHXxx/UEURpussaFrQL8am0KA=="],
 
     "lint-staged": ["lint-staged@16.2.7", "", { "dependencies": { "commander": "^14.0.2", "listr2": "^9.0.5", "micromatch": "^4.0.8", "nano-spawn": "^2.0.0", "pidtree": "^0.6.0", "string-argv": "^0.3.2", "yaml": "^2.8.1" }, "bin": { "lint-staged": "bin/lint-staged.js" } }, "sha512-lDIj4RnYmK7/kXMya+qJsmkRFkGolciXjrsZ6PC25GdTfWOAWetR0ZbsNXRAj1EHHImRSalc+whZFg56F5DVow=="],
 
