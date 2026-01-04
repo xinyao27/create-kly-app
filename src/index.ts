@@ -26,14 +26,8 @@ const createTool = tool({
   description: "Create a new kly application from template",
   inputSchema: z.object({
     name: z.string().describe("Project name").optional(),
-    template: z
-      .enum(["basic", "multi-tool", "ai-powered"])
-      .describe("Template to use")
-      .optional(),
-    dir: z
-      .string()
-      .describe("Target directory (defaults to project name)")
-      .optional(),
+    template: z.enum(["basic", "multi-tool", "ai-powered"]).describe("Template to use").optional(),
+    dir: z.string().describe("Target directory (defaults to project name)").optional(),
   }),
   execute: async (args, context) => {
     output(colors.bgCyan(colors.black(" create-kly-app ")));
@@ -56,9 +50,7 @@ const createTool = tool({
         }
         if (!/^[a-z0-9-]+$/.test(nameResult)) {
           output(
-            colors.red(
-              "Project name can only contain lowercase letters, numbers, and hyphens",
-            ),
+            colors.red("Project name can only contain lowercase letters, numbers, and hyphens"),
           );
           continue;
         }
@@ -89,21 +81,16 @@ const createTool = tool({
     }
 
     // Download template using giget
-    const s = spinner(
-      `Creating project from ${TEMPLATES[template].name} template...`,
-    );
+    const s = spinner(`Creating project from ${TEMPLATES[template].name} template...`);
 
     try {
-      await downloadTemplate(
-        `github:xinyao27/create-kly-app/templates/${template}`,
-        {
-          dir: fullPath,
-          install: false,
-          offline: false,
-          preferOffline: true,
-          auth: process.env.GIGET_AUTH,
-        },
-      );
+      await downloadTemplate(`github:xinyao27/create-kly-app/templates/${template}`, {
+        dir: fullPath,
+        install: false,
+        offline: false,
+        preferOffline: true,
+        auth: process.env.GIGET_AUTH,
+      });
 
       s.succeed("Project created successfully!");
 
@@ -112,10 +99,7 @@ const createTool = tool({
       if (existsSync(packageJsonPath)) {
         const packageJson = await Bun.file(packageJsonPath).json();
         packageJson.name = projectName;
-        await Bun.write(
-          packageJsonPath,
-          `${JSON.stringify(packageJson, null, 2)}\n`,
-        );
+        await Bun.write(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
       }
 
       output(

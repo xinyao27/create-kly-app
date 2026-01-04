@@ -6,19 +6,12 @@ const adviseTool = tool({
   description: "Get travel advice for a city",
   inputSchema: z.object({
     city: z.string().describe("Destination city"),
-    days: z
-      .number()
-      .min(1)
-      .max(30)
-      .default(7)
-      .describe("Number of days to stay"),
+    days: z.number().min(1).max(30).default(7).describe("Number of days to stay"),
     budget: z.number().optional().describe("Budget in USD (optional)"),
     season: z
       .enum(["spring", "summer", "fall", "winter"])
       .optional()
-      .describe(
-        "Travel season (optional, inferred from current date if not provided)",
-      ),
+      .describe("Travel season (optional, inferred from current date if not provided)"),
   }),
   execute: async ({ city, days, budget, season }) => {
     const currentSeason = season || getCurrentSeason();
@@ -83,11 +76,7 @@ function generatePackingList(
   weather: { temp: string; conditions: string },
   days: number,
 ): string[] {
-  const base = [
-    "Passport and travel documents",
-    "Phone charger",
-    `${days} days of clothing`,
-  ];
+  const base = ["Passport and travel documents", "Phone charger", `${days} days of clothing`];
 
   if (weather.temp.includes("25-30")) {
     base.push("Sunscreen", "Sunglasses", "Light clothing", "Swimwear");
