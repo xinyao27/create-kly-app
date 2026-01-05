@@ -1,22 +1,11 @@
-import { defineApp, tool } from "kly";
-import { z } from "zod";
-
-const greetTool = tool({
-  name: "greet",
-  description: "Say hello to someone",
-  inputSchema: z.object({
-    name: z.string().describe("Name to greet"),
-    excited: z.boolean().default(false).describe("Add exclamation mark"),
-  }),
-  execute: async ({ name, excited }) => {
-    const mark = excited ? "!" : ".";
-    return `Hello, ${name}${mark}`;
-  },
-});
+import { defineApp } from "kly";
+import { greetTool } from "./tools/greet";
+import { weatherTool } from "./tools/weather";
 
 export default defineApp({
   name: "my-kly-app",
   version: "0.1.0",
-  description: "A basic kly application",
-  tools: [greetTool],
+  description: "A kly application with multiple tools",
+  tools: [greetTool, weatherTool],
+  instructions: "Help users with greetings and weather information",
 });

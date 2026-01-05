@@ -1,6 +1,6 @@
 # My Kly App
 
-An AI-powered kly application with natural language support.
+A kly application with multiple tools and AI support.
 
 ## Install Kly
 
@@ -81,7 +81,10 @@ kly models
 ```
 .
 ├── src/
-│   └── index.ts      # Entry: defineApp with tools
+│   ├── index.ts      # Entry: defineApp with tools
+│   └── tools/        # Tool definitions
+│       ├── greet.ts
+│       └── weather.ts
 ├── package.json
 ├── tsconfig.json
 └── README.md

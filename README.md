@@ -15,67 +15,24 @@ kly run github.com/xinyao27/create-kly-app
 The tool will interactively guide you through:
 
 1. Choosing a project name
-2. Selecting a template
-3. Setting up your new kly application
+2. Setting up your new kly application
 
 ### With Arguments
 
 You can also pass arguments directly:
 
 ```bash
-kly run github.com/xinyao27/create-kly-app --name my-app --template basic
+kly run github.com/xinyao27/create-kly-app --name my-app
 ```
 
-## Available Templates
+## Template Features
 
-### 🌟 Basic
+The generated project includes:
 
-A minimal single-tool application - perfect for getting started.
-
-**Best for:**
-
-- Learning kly basics
-- Simple CLI tools
-- Quick prototypes
-
-**Includes:**
-
-- Single tool example
-- Basic parameter validation
-- Minimal dependencies
-
-### 🔧 Multi-tool
-
-Multiple tools with organized project structure.
-
-**Best for:**
-
-- Applications with multiple related commands
-- More complex CLI tools
-- Projects that will grow over time
-
-**Includes:**
-
-- Multiple tool examples
-- Organized file structure (`src/tools/`)
-- Best practices for scaling
-
-### 🤖 AI-powered
-
-AI integration with natural language support.
-
-**Best for:**
-
-- AI-powered applications
-- Natural language interfaces
-- Tools that need LLM capabilities
-
-**Includes:**
-
-- Natural language parameter extraction
-- AI SDK integration (OpenAI, Anthropic)
-- Permission system for API keys
-- Examples of AI-powered tools
+- **Multi-tool structure** - Organized `src/tools/` directory for scalable development
+- **AI-ready** - Built-in `instructions` field for MCP mode
+- **Example tools** - Greet and weather tools as starting points
+- **TypeScript** - Full type safety out of the box
 
 ## What is kly?
 
@@ -83,10 +40,9 @@ AI integration with natural language support.
 
 **Key Features:**
 
-- 🚀 **Universal**: Run as CLI, MCP server, or remote app
-- 🤖 **AI-Native**: Built-in support for multiple LLM providers
-- 🔒 **Secure**: Permission system and sandbox execution
-- 📦 **Remote Ready**: Run directly from GitHub without installation
+- **Universal**: Run as CLI, MCP server, or remote app
+- **AI-Native**: Built-in support for multiple LLM providers
+- **Remote Ready**: Run directly from GitHub without installation
 
 ## Quick Start
 
@@ -123,26 +79,6 @@ AI integration with natural language support.
    ```bash
    kly run github.com/yourusername/my-app
    ```
-
-## Examples
-
-### Create a basic app
-
-```bash
-kly run github.com/xinyao27/create-kly-app --name hello-world --template basic
-```
-
-### Create a multi-tool app
-
-```bash
-kly run github.com/xinyao27/create-kly-app --name weather-cli --template multi-tool
-```
-
-### Create an AI-powered app
-
-```bash
-kly run github.com/xinyao27/create-kly-app --name ai-assistant --template ai-powered
-```
 
 ## About this Tool
 

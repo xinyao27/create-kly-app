@@ -1,32 +1,14 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { downloadTemplate } from "giget";
-import { colors, defineApp, input, output, select, spinner, tool } from "kly";
+import { colors, defineApp, input, output, spinner, tool } from "kly";
 import { z } from "zod";
-
-const TEMPLATES = {
-  basic: {
-    name: "Basic",
-    description: "Minimal single-tool application",
-  },
-  "multi-tool": {
-    name: "Multi-tool",
-    description: "Multiple tools with organized structure",
-  },
-  "ai-powered": {
-    name: "AI-powered",
-    description: "AI integration with natural language support",
-  },
-} as const;
-
-type TemplateKey = keyof typeof TEMPLATES;
 
 const createTool = tool({
   name: "create",
   description: "Create a new kly application from template",
   inputSchema: z.object({
     name: z.string().describe("Project name").optional(),
-    template: z.enum(["basic", "multi-tool", "ai-powered"]).describe("Template to use").optional(),
     dir: z.string().describe("Target directory (defaults to project name)").optional(),
   }),
   execute: async (args, context) => {
@@ -59,19 +41,6 @@ const createTool = tool({
       }
     }
 
-    // Ask for template if not provided
-    let template = args.template;
-    if (!template) {
-      template = await select<TemplateKey>({
-        prompt: "Which template would you like to use?",
-        options: Object.entries(TEMPLATES).map(([key, value]) => ({
-          value: key as TemplateKey,
-          name: value.name,
-          description: value.description,
-        })),
-      });
-    }
-
     const targetDir = args.dir || projectName;
     const fullPath = join(workingDir, targetDir);
 
@@ -81,10 +50,10 @@ const createTool = tool({
     }
 
     // Download template using giget
-    const s = spinner(`Creating project from ${TEMPLATES[template].name} template...`);
+    const s = spinner("Creating project...");
 
     try {
-      await downloadTemplate(`github:xinyao27/create-kly-app/templates/${template}`, {
+      await downloadTemplate("github:xinyao27/create-kly-app/templates/basic", {
         dir: fullPath,
         install: false,
         offline: false,
@@ -117,7 +86,6 @@ To run remotely:
       return {
         success: true,
         projectName,
-        template,
         path: fullPath,
       };
     } catch (err) {
@@ -132,16 +100,4 @@ export default defineApp({
   version: "0.0.1",
   description: "Create kly applications with a single command",
   tools: [createTool],
-  permissions: {
-    sandbox: {
-      network: {
-        allowedDomains: ["*.github.com", "*.githubusercontent.com"],
-        deniedDomains: [],
-      },
-      filesystem: {
-        allowWrite: ["*"],
-        allowGitConfig: true,
-      },
-    },
-  },
 });

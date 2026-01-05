@@ -1,8 +1,8 @@
 import { tool } from "kly";
 import { z } from "zod";
 
-export const currentWeatherTool = tool({
-  name: "current",
+export const weatherTool = tool({
+  name: "weather",
   description: "Get current weather for a city",
   inputSchema: z.object({
     city: z.string().describe("City name"),
